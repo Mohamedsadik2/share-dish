@@ -3,6 +3,23 @@ const router = express.Router();
 const Chat = require('../models/Chat');
 const User = require('../models/User');
 
+// Get all private chats for a user
+router.get('/user/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const chats = await Chat.find({ users: userId })
+      .populate('users', 'firstName lastName avatar')
+      .populate('post', 'title photo');
+    // Filter out chats with null posts (deleted posts)
+    const validChats = chats.filter(chat => chat.post !== null);
+    console.log(`Found ${chats.length} chats for user ${userId}, ${validChats.length} with valid posts`);
+    res.json(validChats);
+  } catch (err) {
+    console.error('Error fetching user chats:', err);
+    res.status(500).json({ error: 'Failed to fetch user chats' });
+  }
+});
+
 // Get chat messages for a post
 router.get('/:postId', async (req, res) => {
   try {
@@ -69,25 +86,6 @@ router.post('/:postId/message', async (req, res) => {
   } catch (err) {
     console.error('Error in POST /:postId/message:', err);
     res.status(500).json({ error: err.message });
-  }
-});
-
-// Get all private chats for a user
-router.get('/user/:userId', async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const chats = await Chat.find({ users: userId })
-      .populate('users', 'firstName lastName avatar')
-      .populate('post', 'title photo');
-    
-    // Filter out chats with null posts (deleted posts)
-    const validChats = chats.filter(chat => chat.post !== null);
-    
-    console.log(`Found ${chats.length} chats for user ${userId}, ${validChats.length} with valid posts`);
-    res.json(validChats);
-  } catch (err) {
-    console.error('Error fetching user chats:', err);
-    res.status(500).json({ error: 'Failed to fetch user chats' });
   }
 });
 
