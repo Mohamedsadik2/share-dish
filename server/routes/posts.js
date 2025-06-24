@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/Post');
+const useMock = process.env.MOCK_DB === 'true';
+const Post = useMock ? require('../models/Post.mock') : require('../models/Post');
 const Report = require('../models/Report');
 const User = require('../models/User');
 const multer = require('multer');
