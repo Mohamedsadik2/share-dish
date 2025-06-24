@@ -22,11 +22,13 @@ const EditPost: React.FC = () => {
   const [address, setAddress] = useState('');
   const [pickupTime, setPickupTime] = useState('');
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:5000/api/posts`);
+        const response = await axios.get(`${API_URL}/api/posts`);
         const found = response.data.find((p: any) => p._id === id);
         console.log('Fetched post for editing:', found);
         if (!found) throw new Error('Post not found');
@@ -53,7 +55,7 @@ const EditPost: React.FC = () => {
     formData.append('image', file);
     try {
       setSaving(true);
-      const response = await axios.post('http://localhost:5000/api/posts/upload', formData);
+      const response = await axios.post(`${API_URL}/api/posts/upload`, formData);
       setPhoto(response.data.url);
       setError(null);
     } catch (err) {
@@ -68,7 +70,7 @@ const EditPost: React.FC = () => {
     setSaving(true);
     setError(null);
     try {
-      await axios.patch(`http://localhost:5000/api/posts/${id}`, {
+      await axios.patch(`${API_URL}/api/posts/${id}`, {
         photo,
         description,
         ingredients: ingredients.split(',').map((i) => i.trim()),
