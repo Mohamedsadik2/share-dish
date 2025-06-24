@@ -14,6 +14,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import CheckEmail from './pages/CheckEmail';
 
+console.log("API_URL from env:", process.env.REACT_APP_API_URL);
+
 const theme = createTheme({
   palette: {
     mode: 'light',
