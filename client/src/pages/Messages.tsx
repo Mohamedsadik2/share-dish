@@ -78,7 +78,7 @@ const Messages: React.FC = () => {
       if (!user) return;
       
       try {
-        const response = await axios.get(`${API_URL}/users/firebase/${user.uid}`);
+        const response = await axios.get(`${API_URL}/api/users/firebase/${user.uid}`);
         setMongoUserId(response.data._id);
       } catch (err) {
         console.error('Error fetching MongoDB user ID:', err);
