@@ -16,8 +16,8 @@ router.post('/upload', upload.single('image'), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: 'No image file provided' });
     }
-    // Return the local URL for the uploaded image
-    const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    // Return the relative URL for the uploaded image
+    const imageUrl = `/uploads/${req.file.filename}`;
     res.json({ url: imageUrl });
   } catch (err) {
     console.error('Upload error:', err);
