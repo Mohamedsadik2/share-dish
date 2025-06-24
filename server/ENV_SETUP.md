@@ -5,13 +5,15 @@
 Create a file named `.env` in the `server/` directory with the following content:
 
 ```
-MONGODB_URI=mongodb://localhost:27017/share-dish
+MONGO_URI=mongodb+srv://share-dish:f3EcqHveF3%23%25Fxk@cluster0.6nvgqb7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
 CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 JWT_SECRET=your_jwt_secret_key_here
 PORT=5000
 ```
+
+> **Note:** If your MongoDB password contains special characters (like # or %), you must URL-encode them in the connection string.
 
 ## Client Environment Variables
 
@@ -40,7 +42,7 @@ For testing purposes, you can use these minimal values:
 
 **Server .env:**
 ```
-MONGODB_URI=mongodb://localhost:27017/share-dish
+MONGO_URI=mongodb://localhost:27017/share-dish
 JWT_SECRET=mysecretkey123
 PORT=5000
 ```
