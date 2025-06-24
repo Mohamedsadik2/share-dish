@@ -35,7 +35,7 @@ const { Server } = require('socket.io');
 
 const PORT = process.env.PORT || 5000;
 // Use local MongoDB for easier setup - no external dependencies needed
-const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/share-dish';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/share-dish';
 
 // Connect to MongoDB with updated options
 mongoose.connect(MONGO_URI, {
