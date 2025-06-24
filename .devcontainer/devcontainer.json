@@ -1,24 +1,24 @@
 {
   "name": "Share Dish Project",
+
+  // build context set to repo root so COPY commands (if you add them later)
+  // can access the full project; Dockerfile is in the same folder.
   "build": {
+    "context": "..",
     "dockerfile": "Dockerfile"
   },
+
   "forwardPorts": [3000, 5000, 27017],
+
   "portsAttributes": {
-    "3000": {
-      "label": "React App",
-      "onAutoForward": "notify"
-    },
-    "5000": {
-      "label": "Express API",
-      "onAutoForward": "notify"
-    },
-    "27017": {
-      "label": "MongoDB",
-      "onAutoForward": "silent"
-    }
+    "3000": { "label": "React App", "onAutoForward": "notify" },
+    "5000": { "label": "Express API", "onAutoForward": "notify" },
+    "27017": { "label": "MongoDB",   "onAutoForward": "silent" }
   },
+
+  // runs once the container is up
   "postCreateCommand": "npm install && cd server && npm install && cd ../client && npm install",
+
   "customizations": {
     "vscode": {
       "extensions": [
