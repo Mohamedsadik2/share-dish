@@ -23,6 +23,8 @@ interface Post {
   };
 }
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const PostDetails: React.FC = () => {
   const { id } = useParams();
   const { user } = useAuth();
@@ -36,7 +38,7 @@ const PostDetails: React.FC = () => {
     const fetchPost = async () => {
       setLoading(true);
       try {
-        const postRes = await axios.get(`http://localhost:5000/api/posts`);
+        const postRes = await axios.get(`${API_URL}/api/posts`);
         const found = postRes.data.find((p: Post) => p._id === id);
         setPost(found);
       } catch (err) {
@@ -52,7 +54,7 @@ const PostDetails: React.FC = () => {
     const fetchMongoUserId = async () => {
       if (!user) return;
       try {
-        const response = await axios.get(`http://localhost:5000/api/users/firebase/${user.uid}`);
+        const response = await axios.get(`${API_URL}/api/users/firebase/${user.uid}`);
         setMongoUserId(response.data._id);
       } catch (err) {
         setMongoUserId(null);
@@ -65,7 +67,7 @@ const PostDetails: React.FC = () => {
     if (!mongoUserId || !post || !post.user?._id) return;
     try {
       // Create or fetch the chat
-      const response = await axios.post('http://localhost:5000/api/chat/start', {
+      const response = await axios.post(`${API_URL}/api/chat/start`, {
         postId: post._id,
         userId1: mongoUserId,
         userId2: post.user._id,
@@ -81,7 +83,7 @@ const PostDetails: React.FC = () => {
     if (!post || !mongoUserId) return;
     
     try {
-      await axios.patch(`http://localhost:5000/api/posts/${post._id}/reserve`);
+      await axios.patch(`${API_URL}/api/posts/${post._id}/reserve`);
       setPost({ ...post, reserved: true });
     } catch (err) {
       setError('Failed to reserve post.');
@@ -92,7 +94,7 @@ const PostDetails: React.FC = () => {
     if (!post || !mongoUserId) return;
     
     try {
-      await axios.delete(`http://localhost:5000/api/posts/${post._id}`);
+      await axios.delete(`${API_URL}/api/posts/${post._id}`);
       navigate('/');
     } catch (err) {
       setError('Failed to delete post.');
