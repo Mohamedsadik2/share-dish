@@ -203,7 +203,7 @@ const AddPost: React.FC = () => {
               {photo && (
                 <Box sx={{ mt: 2 }}>
                   <img
-                    src={photo}
+                    src={photo.startsWith('http') ? photo : `${API_URL}${photo}`}
                     alt="Meal"
                     style={{ maxWidth: '100%', maxHeight: '300px', borderRadius: '8px' }}
                     onError={e => {
@@ -212,7 +212,7 @@ const AddPost: React.FC = () => {
                     }}
                   />
                   <Box sx={{ mt: 1 }}>
-                    <a href={photo} target="_blank" rel="noopener noreferrer">View Uploaded Image URL</a>
+                    <a href={photo.startsWith('http') ? photo : `${API_URL}${photo}`} target="_blank" rel="noopener noreferrer">View Uploaded Image URL</a>
                   </Box>
                 </Box>
               )}

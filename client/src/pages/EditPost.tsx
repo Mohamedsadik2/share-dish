@@ -115,7 +115,7 @@ const EditPost: React.FC = () => {
               {photo && (
                 <Box sx={{ mt: 2 }}>
                   <img
-                    src={photo}
+                    src={photo.startsWith('http') ? photo : `${API_URL}${photo}`}
                     alt="Meal"
                     style={{ maxWidth: '100%', maxHeight: '200px', borderRadius: '8px' }}
                   />

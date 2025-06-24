@@ -115,7 +115,7 @@ const PostDetails: React.FC = () => {
             <CardMedia
               component="img"
               height="400"
-              image={post.photo}
+              image={post.photo && post.photo.startsWith('http') ? post.photo : `${API_URL}${post.photo || ''}`}
               alt="Food"
               sx={{ objectFit: 'cover' }}
             />

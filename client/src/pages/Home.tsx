@@ -208,7 +208,7 @@ const Home: React.FC = () => {
                   <CardMedia
                     component="img"
                     height="200"
-                    image={post.photo || "https://source.unsplash.com/featured/?food"}
+                    image={post.photo && post.photo.startsWith('http') ? post.photo : `${API_URL}${post.photo || ''}`}
                     alt="Meal"
                     sx={{ objectFit: 'cover' }}
                   />
